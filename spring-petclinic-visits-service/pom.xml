@@ -17,9 +17,9 @@
     <properties>
         <docker.exposed.port>8081</docker.exposed.port>
         <docker.image.dockerfile.dir>${basedir}/../docker</docker.image.dockerfile.dir>
-        <dockerhub.username>davidunir945</dockerhub.username>
+        <dockerhub.username>angeldominguez97</dockerhub.username>
         <dockerhub.repository>spring-petclinic-visits-test</dockerhub.repository>
-        <dockerhub.password>dckr_pat_h4JdCXIoLpzBAPZcw_nAL-ne0Qc</dockerhub.password>
+        <dockerhub.password>dckr_pat_tfEqibteJb1vwdavxYpNRSK2jq0</dockerhub.password>
     </properties>
 
     <dependencies>
