@@ -72,6 +72,12 @@ spec:
         image: angeldominguez97/spring-petclinic-customers-test:3.2.4
         ports:
         - containerPort: 8081
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 5
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -93,6 +99,12 @@ spec:
         image: angeldominguez97/spring-petclinic-visits-test:3.2.4
         ports:
         - containerPort: 8082
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8082
+          initialDelaySeconds: 5
+          periodSeconds: 5
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -114,6 +126,12 @@ spec:
         image: angeldominguez97/spring-petclinic-vets-test:3.2.4
         ports:
         - containerPort: 8083
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8083
+          initialDelaySeconds: 5
+          periodSeconds: 5
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -135,6 +153,12 @@ spec:
         image: angeldominguez97/spring-petclinic-api-gateway-test:3.2.4
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -177,6 +201,12 @@ spec:
         image: angeldominguez97/spring-petclinic-admin-server-test:3.2.4
         ports:
         - containerPort: 9090
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 5
 ---
 apiVersion: apps/v1
 kind: Deployment
