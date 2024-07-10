@@ -2,7 +2,7 @@ version: '3'
 
 services:
   config-server:
-    image: angeldominguez97/spring-petclinic-config-server-test
+    image: angeldominguez97/spring-petclinic-config-server-test:3.2.4
     container_name: config-server
     deploy:
       resources:
@@ -17,7 +17,7 @@ services:
      - 8888:8888
 
   discovery-server:
-    image: angeldominguez97/spring-petclinic-discovery-server-test
+    image: angeldominguez97/spring-petclinic-discovery-server-test:3.2.4
     container_name: discovery-server
     deploy:
       resources:
@@ -35,7 +35,7 @@ services:
      - 8761:8761
 
   customers-service:
-    image: angeldominguez97/spring-petclinic-customers-test
+    image: angeldominguez97/spring-petclinic-customers-test:3.2.4
     container_name: customers-service
     deploy:
       resources:
@@ -50,7 +50,7 @@ services:
     - 8081:8081
 
   visits-service:
-    image: angeldominguez97/spring-petclinic-visits-test
+    image: angeldominguez97/spring-petclinic-visits-test:3.2.4
     container_name: visits-service
     deploy:
       resources:
@@ -65,7 +65,7 @@ services:
      - 8082:8082
 
   vets-service:
-    image: angeldominguez97/spring-petclinic-vets-test
+    image: angeldominguez97/spring-petclinic-vets-test:3.2.4
     container_name: vets-service
     deploy:
       resources:
@@ -80,7 +80,7 @@ services:
      - 8083:8083
 
   api-gateway:
-    image: angeldominguez97/spring-petclinic-api-gateway-test
+    image: angeldominguez97/spring-petclinic-api-gateway-test:3.2.4
     container_name: api-gateway
     deploy:
       resources:
@@ -107,7 +107,7 @@ services:
      - 9411:9411
 
   admin-server:
-    image: angeldominguez97/spring-petclinic-admin-server-test
+    image: angeldominguez97/spring-petclinic-admin-server-test:3.2.4
     container_name: admin-server
     deploy:
       resources:

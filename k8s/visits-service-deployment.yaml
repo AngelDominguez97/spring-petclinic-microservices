@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: visits-service
-          image: angeldominguez97/spring-petclinic-visits-service-test
+          image: angeldominguez97/spring-petclinic-visits-service-test:3.2.4
           ports:
             - containerPort: 8082
           env:

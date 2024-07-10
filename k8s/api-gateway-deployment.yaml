@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: angeldominguez97/spring-petclinic-api-gateway-test
+          image: angeldominguez97/spring-petclinic-api-gateway-test:3.2.4
           ports:
             - containerPort: 8080
           env:

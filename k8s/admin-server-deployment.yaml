@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: admin-server
-          image: angeldominguez97/spring-petclinic-admin-server-test
+          image: angeldominguez97/spring-petclinic-admin-server-test:3.2.4
           ports:
             - containerPort: 9090
           env:
