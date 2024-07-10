@@ -48,10 +48,10 @@
         <!-- Could be changed by the -push option !-->
         <container.build.extraarg>--load</container.build.extraarg>
 
-        <dockerhub.username>davidunir945</dockerhub.username>
+        <dockerhub.username>angeldominguez97</dockerhub.username>
         <dockerhub.repository>tfm-external-test</dockerhub.repository>
         <!--suppress UnresolvedMavenProperty -->
-        <dockerhub.password>dckr_pat_h4JdCXIoLpzBAPZcw_nAL-ne0Qc</dockerhub.password> <!-- Mejor usar variables de entorno para la contraseña -->
+        <dockerhub.password>dckr_pat_tfEqibteJb1vwdavxYpNRSK2jq0</dockerhub.password> <!-- Mejor usar variables de entorno para la contraseña -->
     </properties>
 
     <dependencyManagement>
