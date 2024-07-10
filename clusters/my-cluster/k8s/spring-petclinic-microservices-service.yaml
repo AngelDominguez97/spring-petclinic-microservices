@@ -132,9 +132,8 @@ metadata:
 spec:
   selector:
     app: api-gateway
+  type: NodePort
   ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080
+  - targetPort: 9898
+    port: 9898
     nodePort: 30007
-  type: ClusterIP
