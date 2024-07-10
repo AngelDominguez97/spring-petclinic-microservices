@@ -86,7 +86,69 @@ spec:
             port: 9090
           initialDelaySeconds: 6
           periodSeconds: 10
--
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tracing-server
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tracing-server
+  template:
+    metadata:
+      labels:
+        app: tracing-server
+    spec:
+      containers:
+      - name: tracing-server
+        image: openzipkin/zipkin
+        ports:
+        - containerPort: 9411
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-server
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-server
+  template:
+    metadata:
+      labels:
+        app: grafana-server
+    spec:
+      containers:
+      - name: grafana-server
+        image: grafana/grafana
+        ports:
+        - containerPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-server
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-server
+  template:
+    metadata:
+      labels:
+        app: prometheus-server
+    spec:
+      containers:
+      - name: prometheus-server
+        image: prom/prometheus
+        ports:
+        - containerPort: 9090
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -184,69 +246,6 @@ spec:
           initialDelaySeconds: 6
           periodSeconds: 10
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: tracing-server
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: tracing-server
-  template:
-    metadata:
-      labels:
-        app: tracing-server
-    spec:
-      containers:
-      - name: tracing-server
-        image: openzipkin/zipkin
-        ports:
-        - containerPort: 9411
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: grafana-server
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: grafana-server
-  template:
-    metadata:
-      labels:
-        app: grafana-server
-    spec:
-      containers:
-      - name: grafana-server
-        image: grafana/grafana
-        ports:
-        - containerPort: 3000
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: prometheus-server
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: prometheus-server
-  template:
-    metadata:
-      labels:
-        app: prometheus-server
-    spec:
-      containers:
-      - name: prometheus-server
-        image: prom/prometheus
-        ports:
-        - containerPort: 9090
---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
