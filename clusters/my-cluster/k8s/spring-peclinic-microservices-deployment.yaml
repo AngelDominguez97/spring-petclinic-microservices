@@ -18,12 +18,15 @@ spec:
         image: angeldominguez97/spring-petclinic-config-server-test:3.2.4
         ports:
         - containerPort: 8888
+        env:
+        - name: CONFIG_SERVER_URL
+          value: "http://config-server:8888"
         livenessProbe:
           httpGet:
             path: /
             port: 8888
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          initialDelaySeconds: 6
+          periodSeconds: 10
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -49,89 +52,8 @@ spec:
           httpGet:
             path: /
             port: 8761
-          initialDelaySeconds: 5
-          periodSeconds: 5
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: customers-service
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: customers-service
-  template:
-    metadata:
-      labels:
-        app: customers-service
-    spec:
-      containers:
-      - name: customers-service
-        image: angeldominguez97/spring-petclinic-customers-test:3.2.4
-        ports:
-        - containerPort: 8081
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8081
-          initialDelaySeconds: 5
-          periodSeconds: 5
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: visits-service
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: visits-service
-  template:
-    metadata:
-      labels:
-        app: visits-service
-    spec:
-      containers:
-      - name: visits-service
-        image: angeldominguez97/spring-petclinic-visits-test:3.2.4
-        ports:
-        - containerPort: 8082
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8082
-          initialDelaySeconds: 5
-          periodSeconds: 5
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: vets-service
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: vets-service
-  template:
-    metadata:
-      labels:
-        app: vets-service
-    spec:
-      containers:
-      - name: vets-service
-        image: angeldominguez97/spring-petclinic-vets-test:3.2.4
-        ports:
-        - containerPort: 8083
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8083
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          initialDelaySeconds: 6
+          periodSeconds: 10
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -157,8 +79,94 @@ spec:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          initialDelaySeconds: 6
+          periodSeconds: 10
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customers-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customers-service
+  template:
+    metadata:
+      labels:
+        app: customers-service
+    spec:
+      containers:
+      - name: customers-service
+        image: angeldominguez97/spring-petclinic-customers-test:3.2.4
+        ports:
+        - containerPort: 8081
+        env:
+        - name: CONFIG_SERVER_URL
+          value: "http://config-server:8888"
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: "http://discovery-server:8761/eureka/"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8081
+          initialDelaySeconds: 6
+          periodSeconds: 10
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: visits-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: visits-service
+  template:
+    metadata:
+      labels:
+        app: visits-service
+    spec:
+      containers:
+      - name: visits-service
+        image: angeldominguez97/spring-petclinic-visits-test:3.2.4
+        ports:
+        - containerPort: 8082
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8082
+          initialDelaySeconds: 6
+          periodSeconds: 10
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vets-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vets-service
+  template:
+    metadata:
+      labels:
+        app: vets-service
+    spec:
+      containers:
+      - name: vets-service
+        image: angeldominguez97/spring-petclinic-vets-test:3.2.4
+        ports:
+        - containerPort: 8083
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8083
+          initialDelaySeconds: 6
+          periodSeconds: 10
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -205,8 +213,8 @@ spec:
           httpGet:
             path: /
             port: 9090
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          initialDelaySeconds: 6
+          periodSeconds: 10
 ---
 apiVersion: apps/v1
 kind: Deployment
