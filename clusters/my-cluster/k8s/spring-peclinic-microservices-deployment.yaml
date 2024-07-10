@@ -58,29 +58,35 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gateway
+  name: admin-server
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-gateway
+      app: admin-server
   template:
     metadata:
       labels:
-        app: api-gateway
+        app: admin-server
     spec:
       containers:
-      - name: api-gateway
-        image: angeldominguez97/spring-petclinic-api-gateway-test:3.2.4
+      - name: admin-server
+        image: angeldominguez97/spring-petclinic-admin-server-test:3.2.4
         ports:
-        - containerPort: 8080
+        - containerPort: 9090
+        env:
+        - name: CONFIG_SERVER_URL
+          value: "http://config-server:8888"
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: "http://discovery-server:8761/eureka/"
         livenessProbe:
           httpGet:
             path: /
-            port: 8080
+            port: 9090
           initialDelaySeconds: 6
           periodSeconds: 10
+-
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -134,6 +140,11 @@ spec:
         image: angeldominguez97/spring-petclinic-visits-test:3.2.4
         ports:
         - containerPort: 8082
+        env:
+        - name: CONFIG_SERVER_URL
+          value: "http://config-server:8888"
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: "http://discovery-server:8761/eureka/"
         livenessProbe:
           httpGet:
             path: /
@@ -161,6 +172,11 @@ spec:
         image: angeldominguez97/spring-petclinic-vets-test:3.2.4
         ports:
         - containerPort: 8083
+        env:
+        - name: CONFIG_SERVER_URL
+          value: "http://config-server:8888"
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: "http://discovery-server:8761/eureka/"
         livenessProbe:
           httpGet:
             path: /
@@ -188,33 +204,6 @@ spec:
         image: openzipkin/zipkin
         ports:
         - containerPort: 9411
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: admin-server
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: admin-server
-  template:
-    metadata:
-      labels:
-        app: admin-server
-    spec:
-      containers:
-      - name: admin-server
-        image: angeldominguez97/spring-petclinic-admin-server-test:3.2.4
-        ports:
-        - containerPort: 9090
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 9090
-          initialDelaySeconds: 6
-          periodSeconds: 10
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -257,3 +246,37 @@ spec:
         image: prom/prometheus
         ports:
         - containerPort: 9090
+--
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: api-gateway
+        image: angeldominguez97/spring-petclinic-api-gateway-test:3.2.4
+        ports:
+        - containerPort: 8080
+        env:
+        - name: CONFIG_SERVER_URL
+          value: "http://config-server:8888"
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: "http://discovery-server:8761/eureka/"
+        - name: ZIPKIN_BASE_URL
+          value: "http://tracing-server:9411"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 6
+          periodSeconds: 10
